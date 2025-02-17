@@ -1,0 +1,13 @@
+{
+  "name": "angular-learning-journey",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "basic-angular",
+    "basic-investment-angular-exercise",
+    "cmp-dive-deep",
+    "directives-deep-dive",
+    "pipes-deep-dive",
+    "service-deep-dive"
+  ]
+}
