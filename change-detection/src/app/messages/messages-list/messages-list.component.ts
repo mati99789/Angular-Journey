@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input, OnInit} from '@angular/core';
 import {MessageService} from "../messages.service";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'app-messages-list',
@@ -7,24 +8,13 @@ import {MessageService} from "../messages.service";
   templateUrl: './messages-list.component.html',
   styleUrl: './messages-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AsyncPipe
+  ]
 })
-export class MessagesListComponent implements OnInit {
+export class MessagesListComponent {
   private messagesService = inject(MessageService)
-  private cdRef = inject(ChangeDetectorRef)
-  private destroyRef = inject(DestroyRef)
-
-  messages : string[] = []
-
-  ngOnInit() {
-    const subscription = this.messagesService.messages$.subscribe((message) => {
-      this.messages = message;
-      this.cdRef.markForCheck();
-    })
-
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    })
-  }
+  messages$ = this.messagesService.messages$
 
 
   get debugOutput() {
